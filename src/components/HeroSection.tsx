@@ -64,6 +64,14 @@ export function HeroSection() {
           </div>
         </div>
 
+        {/* 痛点小标题 */}
+        <div className="mb-6 animate-apple-up text-center" style={{ animationDelay: '180ms' }}>
+          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 text-sm font-medium text-amber-800 shadow-sm">
+            <HelpCircle className="w-4 h-4" />
+            您的企业是否和我过往履历遇到的部分代表性问题类似？
+          </span>
+        </div>
+
         {/* 痛点小卡片 */}
         <div className="mb-8 animate-apple-up" style={{ animationDelay: '200ms' }}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
@@ -99,11 +107,11 @@ export function HeroSection() {
           <div className="flex flex-wrap gap-3 justify-center">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
               <TrendingUp className="w-4 h-4" />
-              60人初创到3000人上市企业经验
+              60人初创 - 200人小型 - 3000人中型上市，因地制宜不同阶段跨境企业数据建设经验
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
               <Users className="w-4 h-4" />
-              亲自下场负责团队搭建到数据成体系
+              非纯管理，从团队搭建-数据成体系，亲自争取资源、经费实现全流程
             </span>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
               <Code className="w-4 h-4" />
