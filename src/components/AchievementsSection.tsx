@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { resumeData } from "@/data/resume"
-import { CheckCircle2, Sparkles, ChevronRight, BarChart3, ExternalLink, Users, Database, Layers } from "lucide-react"
+import { CheckCircle2, ChevronRight, BarChart3, Users, Database, Layers, ArrowRight, FolderOpen } from "lucide-react"
 
+/* ─── 成就模块组件 ─── */
 export function AchievementsSection() {
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const navigate = useNavigate()
@@ -11,25 +12,33 @@ export function AchievementsSection() {
   const isTeamBuilding = (id: number) => id === 1
   const isRdsArch = (id: number) => id === 2
   const isBusinessData = (id: number) => id === 3
+  const isProjects = (id: number) => id === 5
 
   return (
-    <section id="achievements" className="py-24 px-6">
+    <section id="achievements" className="py-24 px-6 surface-2">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-3 mb-10">
-          <Sparkles className="w-5 h-5 text-primary" />
-          <h2 className="text-3xl font-bold text-foreground">
-            我可以给您的企业带来什么？
+        {/* Apple风格标题 */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold tracking-tight mb-3">
+            我如何帮助企业落地数字化？
           </h2>
+          <p className="text-secondary">
+            从零到一的企业级数据体系建设经验
+          </p>
         </div>
 
-        <div className="space-y-4">
+        {/* Apple风格卡片网格 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* 原有四个成就模块 - 2列布局 */}
           {resumeData.achievements.map((item, i) => {
             const isExpanded = expandedId === item.id
             const quickBI = isQuickBI(item.id)
             const teamBuilding = isTeamBuilding(item.id)
             const rdsArch = isRdsArch(item.id)
             const businessData = isBusinessData(item.id)
-            const navigable = quickBI || teamBuilding || rdsArch || businessData
+            const projects = isProjects(item.id)
+            const navigable = quickBI || teamBuilding || rdsArch || businessData || projects
+
             return (
               <button
                 key={item.id}
@@ -42,65 +51,77 @@ export function AchievementsSection() {
                     navigate("/rds-architecture")
                   } else if (businessData) {
                     navigate("/business-data-design")
+                  } else if (projects) {
+                    navigate("/projects")
                   } else {
                     setExpandedId(isExpanded ? null : item.id)
                   }
                 }}
-                className={`w-full text-left p-5 rounded-lg border transition-all duration-300 animate-fade-in-up hover-lift ${
+                className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 animate-apple-up ${
                   isExpanded
-                    ? "border-primary/40 glow-neon"
-                    : "border-border"
-                } surface-elevated ${navigable ? "cursor-pointer" : ""}`}
+                    ? "border-primary/30 shadow-apple-md"
+                    : "border-border hover:border-border/80"
+                } bg-background ${navigable ? "cursor-pointer" : ""}`}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-base font-semibold text-foreground">
-                        {item.id}. {item.title}
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 space-y-3">
+                    {/* 标题 */}
+                    <div className="flex items-start gap-3">
+                      <h3 className="text-lg font-semibold text-primary leading-tight">
+                        {item.title}
                       </h3>
-                      {quickBI ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs bg-primary/15 text-primary border border-primary/20">
-                          <BarChart3 className="w-3 h-3" />
-                          查看看板
-                        </span>
-                      ) : teamBuilding ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs bg-primary/15 text-primary border border-primary/20">
-                          <Users className="w-3 h-3" />
-                          查看数据
-                        </span>
-                      ) : rdsArch ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs bg-primary/15 text-primary border border-primary/20">
-                          <Database className="w-3 h-3" />
-                          查看架构
-                        </span>
-                      ) : businessData ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs bg-primary/15 text-primary border border-primary/20">
-                          <Layers className="w-3 h-3" />
-                          查看设计
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs bg-muted text-muted-foreground">
-                          <CheckCircle2 className="w-3 h-3" />
-                          {item.status}
-                        </span>
-                      )}
                     </div>
-                    <p className="text-sm text-muted-foreground">
+
+                    {/* 状态标签 */}
+                    {quickBI ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        <BarChart3 className="w-3 h-3" />
+                        查看看板
+                      </span>
+                    ) : teamBuilding ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        <Users className="w-3 h-3" />
+                        查看详情
+                      </span>
+                    ) : rdsArch ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        <Database className="w-3 h-3" />
+                        查看架构
+                      </span>
+                    ) : businessData ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        <Layers className="w-3 h-3" />
+                        查看设计
+                      </span>
+                    ) : projects ? (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        <FolderOpen className="w-3 h-3" />
+                        查看项目
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs bg-muted text-muted-foreground">
+                        <CheckCircle2 className="w-3 h-3" />
+                        {item.status}
+                      </span>
+                    )}
+
+                    {/* 描述文字 */}
+                    <p className="text-sm text-secondary leading-relaxed">
                       {item.description}
                     </p>
 
-                    {/* Expanded details */}
+                    {/* 展开详情 */}
                     {!navigable && (
                       <div
                         className={`overflow-hidden transition-all duration-300 ${
                           isExpanded
-                            ? "max-h-96 opacity-100 mt-4"
+                            ? "max-h-96 opacity-100 pt-3"
                             : "max-h-0 opacity-0"
                         }`}
                       >
                         <div className="pt-4 border-t border-border">
-                          <p className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line">
+                          <p className="text-sm text-primary/80 leading-relaxed whitespace-pre-line">
                             {item.details}
                           </p>
                         </div>
@@ -108,11 +129,12 @@ export function AchievementsSection() {
                     )}
                   </div>
 
+                  {/* 箭头指示器 */}
                   {navigable ? (
-                    <ExternalLink className="w-5 h-5 text-primary shrink-0 ml-4 mt-1" />
+                    <ArrowRight className="w-5 h-5 text-primary shrink-0" />
                   ) : (
                     <ChevronRight
-                      className={`w-5 h-5 text-muted-foreground shrink-0 ml-4 mt-1 transition-transform duration-300 ${
+                      className={`w-5 h-5 text-muted-foreground shrink-0 transition-transform duration-300 ${
                         isExpanded ? "rotate-90" : ""
                       }`}
                     />

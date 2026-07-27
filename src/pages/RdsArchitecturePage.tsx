@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ArrowLeft, Database, ChevronRight, Layers, Zap, Globe,
@@ -24,6 +25,11 @@ const fmtNum = (v: unknown) => [`${v}`]
 
 export default function RdsArchitecturePage() {
   const navigate = useNavigate()
+
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const kpis = [
     { label: "累计数据量", value: rdsKpiSummary.totalDataVolume, unit: "TB", icon: "Database" },

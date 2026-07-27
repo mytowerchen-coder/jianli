@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ArrowLeft, Database, ChevronRight, Layers, BarChart3, Activity,
@@ -28,6 +28,11 @@ const fmtWan = (v: unknown) => [`${v} 万条`]
 export default function BusinessDataDesignPage() {
   const navigate = useNavigate()
   const [expandedModule, setExpandedModule] = useState<string | null>(null)
+
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const kpis = [
     { label: "业务模块数", value: String(businessKpiSummary.moduleCount), unit: "个", icon: "Layers" },

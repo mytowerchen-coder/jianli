@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { ArrowLeft, BarChart3 } from "lucide-react"
 import { FilterProvider } from "@/components/bi/FilterContext"
@@ -16,6 +16,11 @@ import { InventoryTab } from "@/components/bi/tabs/InventoryTab"
 export default function BIDashboard() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("overview")
+
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const renderTab = () => {
     switch (activeTab) {

@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+pnpm-store/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Preview images
+preview_*.png
+preview_*.jpg
+
+# Local server
+server.js
+
+# Store directories
+--store-dir
+
+# Libraries
+lib/
+
+# Wrangler (Cloudflare)
+wrangler.toml
+
+# API folder
+api/

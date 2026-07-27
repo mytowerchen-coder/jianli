@@ -1,345 +1,136 @@
 import { useState, useEffect } from "react"
+import { ChevronDown, TrendingUp, AlertCircle, HardDrive, PieChart, Timer, Users, HelpCircle, Code, Target, Lightbulb } from "lucide-react"
 import { resumeData } from "@/data/resume"
-import { Terminal, ChevronDown, Laptop, Users, TrendingUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
 
-/* ─── Floating Career Card on Curve ─── */
-function CareerNode({
-  year,
-  company,
-  role,
-  scale,
-  marketCap,
-  teamSize,
-  highlight,
-  floatClass,
-  delayMs,
-  left,
-  top,
-}: {
-  year: string
-  company: string
-  role: string
-  scale: string
-  marketCap: string
-  teamSize: string
-  highlight: boolean
-  floatClass: string
-  delayMs: number
-  left: string
-  top: string
-}) {
-  return (
-    <div
-      className="absolute opacity-0 animate-fade-in-up"
-      style={{
-        left,
-        top,
-        animationDelay: `${delayMs}ms`,
-        animationFillMode: "forwards",
-      }}
-    >
-      <div className={floatClass}>
-        <div
-          className={`relative p-3.5 rounded-xl border backdrop-blur-md transition-all duration-300 w-52 ${
-            highlight
-              ? "border-primary/30 glow-neon bg-primary/[0.06]"
-              : "border-border/50 bg-card/40"
-          }`}
-        >
-          {/* Year badge */}
-          <div
-            className={`absolute -top-3 left-4 px-2 py-0.5 rounded text-[10px] font-bold tracking-wider ${
-              highlight
-                ? "bg-primary text-primary-foreground"
-                : "bg-muted/80 text-muted-foreground border border-border/50"
-            }`}
-          >
-            {year}
-          </div>
-
-          {highlight && (
-            <div className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full bg-primary/60" />
-          )}
-
-          <div className="flex items-start gap-2.5 mt-1">
-            <div
-              className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                highlight
-                  ? "bg-primary/15 text-primary"
-                  : "bg-muted/60 text-muted-foreground"
-              }`}
-            >
-              <Laptop className="w-3.5 h-3.5" />
-            </div>
-            <div className="space-y-0.5">
-              <h4
-                className={`text-[13px] font-semibold leading-tight ${
-                  highlight ? "text-foreground" : "text-foreground/80"
-                }`}
-              >
-                {company}
-              </h4>
-              <p className="text-[11px] text-primary font-medium">{role}</p>
-            </div>
-          </div>
-
-          {(scale || marketCap || teamSize) && (
-            <div className="flex flex-wrap gap-1 mt-2.5">
-              {scale && (
-                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] bg-muted/50 text-muted-foreground">
-                  <Users className="w-2 h-2" />
-                  {scale}
-                </span>
-              )}
-              {marketCap && (
-                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] bg-muted/50 text-muted-foreground">
-                  <TrendingUp className="w-2 h-2" />
-                  {marketCap}
-                </span>
-              )}
-              {teamSize && (
-                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] bg-muted/50 text-muted-foreground">
-                  <Users className="w-2 h-2" />
-                  {teamSize}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ─── SVG Curve Chart ─── */
-function CareerCurve() {
-  return (
-    <svg
-      viewBox="0 0 420 380"
-      className="absolute inset-0 w-full h-full"
-      fill="none"
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <defs>
-        <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(190, 90%, 55%)" stopOpacity="0.7" />
-          <stop offset="50%" stopColor="hsl(217, 91%, 60%)" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="hsl(265, 80%, 65%)" stopOpacity="0.7" />
-        </linearGradient>
-        <filter id="curveGlow">
-          <feGaussianBlur stdDeviation="3.5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {/* Main curve */}
-      <path
-        d="M 40 120 C 100 40, 170 50, 210 140 S 340 300, 390 220"
-        stroke="url(#curveGrad)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        filter="url(#curveGlow)"
-        strokeDasharray="600"
-        strokeDashoffset="600"
-        style={{ animation: "curve-draw 2s ease-out 0.3s forwards" }}
-      />
-      {/* Glow layer */}
-      <path
-        d="M 40 120 C 100 40, 170 50, 210 140 S 340 300, 390 220"
-        stroke="url(#curveGrad)"
-        strokeWidth="8"
-        strokeLinecap="round"
-        opacity="0.1"
-        strokeDasharray="600"
-        strokeDashoffset="600"
-        style={{ animation: "curve-draw 2s ease-out 0.3s forwards" }}
-      />
-
-      {/* Node 1: 2022 */}
-      <circle cx="40" cy="120" r="10" fill="none" stroke="hsl(190,90%,55%)" strokeWidth="1.5" opacity="0"
-        style={{ animation: "node-pulse 2s ease-in-out 1s infinite" }} />
-      <circle cx="40" cy="120" r="5" fill="hsl(190,90%,55%)" stroke="hsl(190,90%,55%)" strokeWidth="2" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 0.8s forwards" }} />
-      <text x="40" y="148" textAnchor="middle" fill="hsl(215,12%,55%)" fontSize="11" fontWeight="700" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 0.9s forwards" }}>2022</text>
-
-      {/* Node 2: 2024 */}
-      <circle cx="210" cy="140" r="10" fill="none" stroke="hsl(217,91%,60%)" strokeWidth="1.5" opacity="0"
-        style={{ animation: "node-pulse 2s ease-in-out 1.2s infinite" }} />
-      <circle cx="210" cy="140" r="5" fill="hsl(230,20%,14%)" stroke="hsl(217,91%,60%)" strokeWidth="2" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 1s forwards" }} />
-      <text x="210" y="168" textAnchor="middle" fill="hsl(215,12%,55%)" fontSize="11" fontWeight="700" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 1.1s forwards" }}>2024</text>
-
-      {/* Node 3: 2026 */}
-      <circle cx="390" cy="220" r="10" fill="none" stroke="hsl(265,80%,65%)" strokeWidth="1.5" opacity="0"
-        style={{ animation: "node-pulse 2s ease-in-out 1.4s infinite" }} />
-      <circle cx="390" cy="220" r="5" fill="hsl(230,20%,14%)" stroke="hsl(265,80%,65%)" strokeWidth="2" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 1.2s forwards" }} />
-      <text x="390" y="248" textAnchor="middle" fill="hsl(215,12%,55%)" fontSize="11" fontWeight="700" opacity="0"
-        style={{ animation: "node-appear 0.4s ease-out 1.3s forwards" }}>2026</text>
-    </svg>
-  )
-}
-
-/* ─── Floating Particles ─── */
-function FloatingParticles() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1 h-1 rounded-full bg-primary/30 particle-drift"
-          style={{
-            left: `${15 + i * 14}%`,
-            bottom: `${10 + (i % 3) * 20}%`,
-            animationDelay: `${i * 0.8}s`,
-            animationDuration: `${3 + (i % 3)}s`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-/* ─── Hero Section ─── */
+/* ─── 数字化咨询公司官网风格 Hero Section ─── */
 export function HeroSection() {
-  const [displayedTitle, setDisplayedTitle] = useState("")
-  const [showSubtitle, setShowSubtitle] = useState(false)
-  const fullTitle = resumeData.title
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    let i = 0
-    const timer = setInterval(() => {
-      if (i <= fullTitle.length) {
-        setDisplayedTitle(fullTitle.slice(0, i))
-        i++
-      } else {
-        clearInterval(timer)
-        setTimeout(() => setShowSubtitle(true), 300)
-      }
-    }, 80)
-    return () => clearInterval(timer)
+    const timer = setTimeout(() => setIsLoaded(true), 100)
+    return () => clearTimeout(timer)
   }, [])
 
-  const scrollToChat = () => {
-    document.getElementById("chat")?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  const floatClasses = ["career-float-1", "career-float-2", "career-float-3"]
-  const delayMsList = [300, 500, 700]
-  const nodePositions = [
-    { left: "0%", top: "0%" },
-    { left: "42%", top: "50%" },
-    { left: "57%", top: "2%" },
-  ]
-
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden">
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: `url(/images/hero-bg.png)` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+    <section className="min-h-screen flex items-center justify-center bg-background overflow-hidden">
+      {/* 主内容区 */}
+      <div className={`w-full max-w-4xl mx-auto px-6 py-20 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
 
-      {/* Background grid */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(hsl(var(--neon-cyan)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--neon-cyan)) 1px, transparent 1px)`,
-        backgroundSize: "60px 60px"
-      }} />
+        {/* 状态标签 */}
+        <div className="mb-8 animate-apple-up text-center">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 text-sm text-muted-foreground bg-muted rounded-full">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            支持全职加入 · 项目合作 · 数字化咨询
+          </span>
+        </div>
 
-      {/* Glow orbs */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full animate-glow-pulse" style={{
-        background: `radial-gradient(circle, hsl(var(--neon-cyan) / 0.12), transparent 70%)`,
-        filter: "blur(60px)"
-      }} />
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full animate-glow-pulse animate-delay-300" style={{
-        background: `radial-gradient(circle, hsl(var(--neon-purple) / 0.1), transparent 70%)`,
-        filter: "blur(60px)"
-      }} />
+        {/* 主标题 */}
+        <div className="mb-6 animate-apple-up text-center" style={{ animationDelay: '100ms' }}>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-tight">
+            帮助中小跨境电商企业完成
+            <br />
+            <span className="text-primary">"数据驱动业务决策"</span>
+            <br />
+            的开荒-可用-可信-稳定
+          </h1>
+        </div>
 
-      <FloatingParticles />
-
-      {/* Main content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Intro */}
-          <div className="text-center lg:text-left space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border surface-elevated animate-fade-in mx-auto lg:mx-0">
-              <Terminal className="w-4 h-4 text-primary" />
-              <span className="text-xs text-muted-foreground tracking-wider uppercase">
-                Interactive Resume
-              </span>
-            </div>
-
-            <div className="space-y-2 animate-fade-in-up animate-delay-100">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                <span className="text-gradient-neon">{resumeData.name}</span>
-              </h1>
-            </div>
-
-            <div className="h-10 flex items-center justify-center lg:justify-start animate-fade-in-up animate-delay-200">
-              <span className="text-lg md:text-xl text-foreground/80 font-light">
-                {displayedTitle}
-                <span className="inline-block w-0.5 h-5 bg-primary ml-1 animate-typing-cursor align-middle" />
-              </span>
-            </div>
-
-            {showSubtitle && (
-              <div className="flex items-center justify-center lg:justify-start gap-3 animate-fade-in">
-                {resumeData.subtitles.map((sub, i) => (
-                  <span
-                    key={sub}
-                    className="px-3 py-1 rounded-md text-xs border border-border surface-elevated text-muted-foreground animate-fade-in-up"
-                    style={{ animationDelay: `${i * 150}ms` }}
-                  >
-                    {sub}
-                  </span>
-                ))}
+        {/* 企业履历 */}
+        <div className="mb-8 animate-apple-up" style={{ animationDelay: '150ms' }}>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {resumeData.career.map((job, index) => (
+              <div
+                key={index}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-all ${
+                  job.highlight
+                    ? "bg-primary/5 border-primary/20 text-primary"
+                    : "bg-muted/50 border-transparent text-muted-foreground"
+                }`}
+              >
+                <span className="font-semibold">{job.year}</span>
+                <span className="text-muted-foreground/50">·</span>
+                <span className="font-medium">{job.company}</span>
+                <span className="text-muted-foreground/50">·</span>
+                <span>{job.role}</span>
+                {job.highlight && (
+                  <>
+                    <span className="text-muted-foreground/50">·</span>
+                    <TrendingUp className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-primary">{job.scale}</span>
+                  </>
+                )}
               </div>
-            )}
-
-            <p className="text-muted-foreground text-sm md:text-base leading-relaxed animate-fade-in-up animate-delay-400">
-              {resumeData.summary}
-            </p>
-
-            <div className="animate-fade-in-up animate-delay-500">
-              <Button variant="neon" size="lg" onClick={scrollToChat}>
-                AI了解我可以为您的企业带来什么？
-                <ChevronDown className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Right: Floating curve career chart */}
-          <div className="relative w-full h-[420px] lg:h-[440px]">
-            <CareerCurve />
-
-            {resumeData.career.map((job, i) => (
-              <CareerNode
-                key={job.company}
-                {...job}
-                floatClass={floatClasses[i]}
-                delayMs={delayMsList[i]}
-                left={nodePositions[i].left}
-                top={nodePositions[i].top}
-              />
             ))}
+          </div>
+        </div>
 
-            <div className="absolute bottom-0 right-0 text-[10px] text-muted-foreground/50 tracking-widest uppercase opacity-0 animate-fade-in animate-delay-800">
-              Career Path
+        {/* 痛点小卡片 */}
+        <div className="mb-8 animate-apple-up" style={{ animationDelay: '200ms' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-w-3xl mx-auto">
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50/50 border border-red-100">
+              <HardDrive className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-red-700">数据源分散在ERP、Excel、多维表、RPA</span>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-orange-50/50 border border-orange-100">
+              <Users className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-orange-700">不同系统人工拼凑数据，运营每天要花非主业时间去维护</span>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-yellow-50/50 border border-yellow-100">
+              <PieChart className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-yellow-700">管理层看到的数据不一致，质疑数据究竟怎么算的</span>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/50 border border-amber-100">
+              <Timer className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-amber-700">业务数据量变大，飞书、钉钉多维表卡顿打转</span>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/50 border border-amber-100">
+              <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-amber-700">管理层和业财想看的数据不一样，指标怎么覆盖全面，权限怎么划分</span>
+            </div>
+            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/50 border border-amber-100">
+              <HelpCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+              <span className="text-sm text-amber-700">业务看完报表，不确定下一步要做什么优化动作</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-8 animate-float">
-        <ChevronDown className="w-5 h-5 text-muted-foreground" />
+        {/* 价值描述 - 蓝色小卡片 */}
+        <div className="mb-8 animate-apple-up" style={{ animationDelay: '300ms' }}>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
+              <TrendingUp className="w-4 h-4" />
+              60人初创到3000人上市企业经验
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
+              <Users className="w-4 h-4" />
+              亲自下场负责团队搭建到数据成体系
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
+              <Code className="w-4 h-4" />
+              既能写代码，又能做团队管理
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
+              <Target className="w-4 h-4" />
+              3年，一步步从普通数据专员到数据经理
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-sm text-blue-700">
+              <Lightbulb className="w-4 h-4" />
+              初创跨境企业踩的数据建设坑、中型企业成熟数据应用，都有相对较好复刻经验
+            </span>
+          </div>
+        </div>
+
+        {/* 底部价值表达 */}
+        <div className="mt-12 text-center animate-apple-up" style={{ animationDelay: '400ms' }}>
+          <p className="text-sm text-muted-foreground/70 italic">
+            您需要的不只是系统，而是真正能够落地的数字化能力。
+          </p>
+        </div>
+
+        {/* 滚动提示 */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-5 h-5 text-muted-foreground" />
+        </div>
       </div>
     </section>
   )

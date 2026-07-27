@@ -1,16 +1,16 @@
 export const resumeData = {
   name: "陈先生",
   nameEn: "Mr. Chen",
-  title: "跨境电商数据运营经理",
+  title: "跨境电商数据负责人",
   subtitles: ["数据团队负责人", "BI 数据分析师"],
   summary:
-    "专注于跨境电商领域的数据驱动运营，拥有从零搭建企业级数据中台的完整经验。擅长团队组建、数据架构设计、BI 体系搭建，通过数据赋能业务决策，推动企业从经验驱动向数据驱动转型。",
+    "聚焦跨境电商全链路信息数字化建设，推动业务流程优化、数据驱动决策、业财ERP系统打通建设及AI应用落地。",
   career: [
     {
       year: "2022",
       company: "华凯易佰",
-      role: "数据组长",
-      scale: "2000 人规模",
+      role: "数据负责人",
+      scale: "3000 人规模",
       marketCap: "市值 70 亿",
       teamSize: "带领团队 13 人",
       highlight: true,
@@ -18,7 +18,7 @@ export const resumeData = {
     {
       year: "2024",
       company: "飞铭达",
-      role: "数据组长",
+      role: "数据负责人",
       scale: "",
       marketCap: "",
       teamSize: "",
@@ -27,7 +27,7 @@ export const resumeData = {
     {
       year: "2026",
       company: "扬青科技",
-      role: "数据运营经理",
+      role: "数据负责人",
       scale: "",
       marketCap: "",
       teamSize: "",
@@ -66,6 +66,48 @@ export const resumeData = {
       description: "多店铺销售财务大盘与广告秒级响应，支撑数据驱动业务提升",
       details:
         "基于 Quick BI 搭建企业级 BI 看板体系，涵盖多店铺销售大盘、财务利润分析、广告投放效果追踪。实现秒级数据刷新，支持管理层实时数据决策。",
+    },
+    {
+      id: 5,
+      title: "代表性项目案例",
+      status: "查看详情",
+      description: "广告分析、库存预测、库存周转三大核心项目完整复盘",
+      details: "点击查看亚马逊广告效果分析、库存预测模型、库存周转优化三大核心项目的完整分析思路、方法论与落地成果。",
+    },
+  ],
+  projects: [
+    {
+      id: 1,
+      name: "广告效果分析与优化",
+      businessGoal: "需求效率",
+      background: "Amazon US 家居收纳类目，30+ ASIN，SP广告覆盖",
+      problem: "ACOS高于预期区间(25%-40%)，ROI偏低，广告消耗增长但销售提升不明显",
+      approach: "假设驱动分析法：拆解ACOS公式，提出三组互斥假设，逐一验证排除",
+      results: ["ACOS下降15%-20%", "转化率提升8%-12%", "广告投入占比稳定在10%-15%"],
+      highlights: ["ACOS=CPC÷(转化率×客单价)", "关键词结构问题导致CPC被拉高", "Listing承接能力影响转化率"],
+      methodology: "假设提出 → 数据验证 → 排除归因 → 决策支撑",
+    },
+    {
+      id: 2,
+      name: "库存预测与滚动优化",
+      businessGoal: "风险控制",
+      background: "多SKU跨境卖家，海运补货提前期28-35天，存在需求波动",
+      problem: "核心ASIN周期性断货，长尾ASIN库存积压，预测结果不可回溯",
+      approach: "需求波动模型 + 安全库存机制 + 滚动预测体系",
+      results: ["核心ASIN断货明显下降", "补货决策转为模型驱动", "预测结果可回溯可复盘"],
+      highlights: ["安全库存SS=Z×σ×√L", "分层管理：核心/长尾ASIN差异化策略", "偏差类型判定触发滚动预测"],
+      methodology: "需求波动建模 → 安全库存计算 → 回溯验证 → 滚动优化",
+    },
+    {
+      id: 3,
+      name: "库存优化与周转提升",
+      businessGoal: "资金效率",
+      background: "30+ ASIN同时存在断货与积压，仓储费用上升，资金占用率高",
+      problem: "库存结构失衡+销量结构不合理，非简单的库存多少问题",
+      approach: "库存结构重构 + 四象限分析 + 分层补货策略",
+      results: ["库存周转率提升20%-30%", "仓储费用下降15%+", "缺货率显著改善"],
+      highlights: ["动销/慢销/呆滞三层分类", "四象限：快销/滞销/高周转/低周转策略", "180天呆滞库存止损机制"],
+      methodology: "结构诊断 → 假设验证 → 分层策略 → 结果固化",
     },
   ],
   chatQA: [

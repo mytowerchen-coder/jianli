@@ -12,7 +12,7 @@ interface Message {
 function matchAnswer(input: string): string {
   const lower = input.toLowerCase()
 
-  // Exact keyword matching
+  // 精确关键词匹配
   for (const qa of resumeData.chatQA) {
     for (const keyword of qa.keywords) {
       if (lower.includes(keyword.toLowerCase())) {
@@ -21,7 +21,7 @@ function matchAnswer(input: string): string {
     }
   }
 
-  // Fuzzy fallback — partial match
+  // 模糊匹配
   for (const qa of resumeData.chatQA) {
     for (const keyword of qa.keywords) {
       const chars = keyword.split("")
@@ -38,9 +38,9 @@ function matchAnswer(input: string): string {
 function TypingIndicator() {
   return (
     <div className="flex items-center gap-1.5 px-4 py-3">
-      <div className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
-      <div className="w-2 h-2 rounded-full bg-primary animate-glow-pulse animate-delay-200" />
-      <div className="w-2 h-2 rounded-full bg-primary animate-glow-pulse animate-delay-400" />
+      <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+      <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-100" />
+      <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-200" />
     </div>
   )
 }
@@ -48,23 +48,23 @@ function TypingIndicator() {
 function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === "user"
 
-  // Parse markdown bold
+  // 格式化markdown粗体
   const formattedContent = message.content
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground font-semibold">$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary font-semibold">$1</strong>')
     .replace(/\n/g, "<br/>")
 
   return (
     <div
-      className={`flex gap-3 animate-slide-in-${isUser ? "right" : "left"} ${
+      className={`flex gap-3 animate-apple-in ${
         isUser ? "flex-row-reverse" : ""
       }`}
     >
-      {/* Avatar */}
+      {/* 头像 - Apple简洁风格 */}
       <div
         className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center ${
           isUser
-            ? "bg-primary/20 text-primary"
-            : "bg-neon-purple/20 text-neon-purple"
+            ? "bg-primary/10 text-primary"
+            : "bg-muted text-muted-foreground"
         }`}
       >
         {isUser ? (
@@ -74,12 +74,12 @@ function MessageBubble({ message }: { message: Message }) {
         )}
       </div>
 
-      {/* Bubble */}
+      {/* 消息气泡 - Apple简洁风格 */}
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+        className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
           isUser
-            ? "bg-primary/15 text-foreground border border-primary/20"
-            : "surface-elevated border border-border text-foreground/90"
+            ? "bg-primary text-primary-foreground"
+            : "bg-muted text-primary"
         }`}
         dangerouslySetInnerHTML={{ __html: formattedContent }}
       />
@@ -125,7 +125,7 @@ export function ChatSection() {
       setInput("")
       setIsTyping(true)
 
-      // Simulate typing delay
+      // 模拟打字延迟
       const delay = Math.min(800 + text.length * 30, 2000)
       setTimeout(() => {
         const answer = matchAnswer(text)
@@ -159,22 +159,24 @@ export function ChatSection() {
 
   return (
     <section id="chat" className="py-24 px-6">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex items-center gap-3 mb-3">
-          <MessageCircle className="w-5 h-5 text-primary" />
-          <h2 className="text-3xl font-bold text-foreground">AI了解我可以为您的企业带来什么？</h2>
+      <div className="max-w-2xl mx-auto">
+        {/* Apple风格标题 */}
+        <div className="text-center mb-8">
+          <h2 className="text-4xl font-bold tracking-tight mb-3">
+            AI了解我可以为您的企业带来什么？
+          </h2>
+          <p className="text-secondary">
+            基于简历内容实时回答您的问题
+          </p>
         </div>
-        <p className="text-muted-foreground mb-8">
-          AI 助手会基于简历内容实时回答
-        </p>
 
-        {/* Quick question buttons */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        {/* 快捷问题按钮 - Apple简洁风格 */}
+        <div className="flex flex-wrap justify-center gap-2 mb-6">
           {resumeData.chatQA.slice(0, 6).map((qa) => (
             <button
               key={qa.question}
               onClick={() => handleQuickQuestion(qa.question)}
-              className="px-3 py-1.5 rounded-full text-xs border border-border surface-elevated text-muted-foreground hover:border-primary/40 hover:text-primary transition-all duration-300"
+              className="px-4 py-2 rounded-full text-sm text-secondary hover:text-primary hover:bg-muted/50 transition-colors"
               disabled={isTyping}
             >
               {qa.question}
@@ -182,46 +184,46 @@ export function ChatSection() {
           ))}
         </div>
 
-        {/* Chat container */}
-        <div className="rounded-xl border border-border overflow-hidden surface-elevated">
-          {/* Chat header */}
-          <div className="flex items-center justify-between px-5 py-3 border-b border-border">
+        {/* 聊天容器 - Apple简洁卡片 */}
+        <div className="rounded-2xl border border-border bg-background shadow-apple-md overflow-hidden">
+          {/* 聊天头部 */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-border">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="text-sm text-muted-foreground">
+              <div className="w-2 h-2 rounded-full bg-primary" />
+              <span className="text-sm font-medium text-secondary">
                 AI 简历助手
               </span>
             </div>
             <button
               onClick={handleReset}
-              className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
               title="重置对话"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Messages */}
+          {/* 消息区域 */}
           <div
             ref={scrollRef}
-            className="h-96 overflow-y-auto p-5 space-y-4"
+            className="h-80 overflow-y-auto p-5 space-y-4"
           >
             {messages.map((msg) => (
               <MessageBubble key={msg.id} message={msg} />
             ))}
             {isTyping && (
               <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center bg-neon-purple/20 text-neon-purple">
+                <div className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center bg-muted text-muted-foreground">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="surface-elevated border border-border rounded-2xl">
+                <div className="bg-muted rounded-2xl">
                   <TypingIndicator />
                 </div>
               </div>
             )}
           </div>
 
-          {/* Input */}
+          {/* 输入区域 */}
           <div className="p-4 border-t border-border">
             <form
               onSubmit={(e) => {
@@ -235,15 +237,14 @@ export function ChatSection() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="输入您的问题..."
-                className="flex-1 px-4 py-2.5 rounded-lg bg-muted border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 transition-all"
+                className="flex-1 px-4 py-3 rounded-xl bg-muted border border-transparent text-sm text-primary placeholder:text-muted-foreground focus:outline-none focus:border-primary/30 focus:bg-background transition-all"
                 disabled={isTyping}
               />
               <Button
                 type="submit"
-                variant="neon-solid"
                 size="icon"
                 disabled={!input.trim() || isTyping}
-                className="shrink-0 rounded-lg"
+                className="shrink-0 rounded-xl"
               >
                 <Send className="w-4 h-4" />
               </Button>

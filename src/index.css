@@ -4,193 +4,366 @@
 
 @layer base {
   :root {
-    /* Dark sci-fi base palette */
-    --background: 228 14% 8%;
-    --foreground: 210 20% 92%;
+    /* ============================================
+       Apple-Inspired Design System
+       极简商务风格配色方案
+       ============================================ */
 
-    --card: 230 18% 12%;
-    --card-foreground: 210 20% 92%;
+    /* === 亮色模式 (Light Mode) === */
+    --background: 0 0% 100%;           /* #FFFFFF 纯白背景 */
+    --foreground: 0 0% 10%;           /* #1A1A1A 近黑文字 */
 
-    --popover: 230 18% 12%;
-    --popover-foreground: 210 20% 92%;
+    --card: 0 0% 98%;                  /* #FAFAFA 卡片背景 */
+    --card-foreground: 0 0% 10%;       /* 卡片文字 */
 
-    /* Neon cyan primary */
-    --primary: 190 90% 55%;
-    --primary-foreground: 228 14% 8%;
+    --popover: 0 0% 100%;             /* 弹出层 */
+    --popover-foreground: 0 0% 10%;
 
-    --secondary: 230 20% 18%;
-    --secondary-foreground: 210 20% 92%;
+    /* Apple Blue - 主强调色 */
+    --primary: 211 100% 50%;          /* #007AFF Apple蓝 */
+    --primary-foreground: 0 0% 100%;   /* 白色文字 */
 
-    --muted: 230 16% 16%;
-    --muted-foreground: 215 12% 55%;
+    --secondary: 0 0% 96%;            /* #F5F5F7 Apple浅灰 */
+    --secondary-foreground: 0 0% 10%;
 
-    --accent: 230 20% 18%;
-    --accent-foreground: 210 20% 92%;
+    /* 柔和灰色系 */
+    --muted: 0 0% 95%;                /* #F2F2F7 次要背景 */
+    --muted-foreground: 0 0% 45%;     /* #727275 中灰文字 */
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 20% 92%;
+    --accent: 0 0% 96%;               /* 强调背景 */
+    --accent-foreground: 211 100% 50%;
 
-    --border: 230 16% 20%;
-    --input: 230 16% 20%;
-    --ring: 190 90% 55%;
-    --radius: 0.75rem;
+    --destructive: 0 84% 60%;          /* 错误红 */
+    --destructive-foreground: 0 0% 100%;
 
-    /* Custom neon tokens */
-    --neon-cyan: 190 90% 55%;
-    --neon-blue: 217 91% 60%;
-    --neon-purple: 265 80% 65%;
-    --surface-elevated: 230 20% 14%;
+    /* 边框和输入 */
+    --border: 0 0% 90%;               /* #E5E5E5 浅灰边框 */
+    --input: 0 0% 90%;
+    --ring: 211 100% 50%;
+    --radius: 12px;                    /* Apple圆角 */
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(
-      135deg,
-      hsl(190 90% 55% / 0.15),
-      hsl(265 80% 65% / 0.1)
-    );
-    --gradient-card: linear-gradient(
-      180deg,
-      hsl(230 18% 14%),
-      hsl(230 18% 11%)
-    );
-    --gradient-neon-border: linear-gradient(
-      135deg,
-      hsl(190 90% 55% / 0.5),
-      hsl(265 80% 65% / 0.3)
-    );
-    --gradient-text: linear-gradient(
-      90deg,
-      hsl(190 90% 55%),
-      hsl(217 91% 60%),
-      hsl(265 80% 65%)
-    );
+    /* 成功色 */
+    --success: 142 71% 45%;           /* #34C759 Apple绿 */
+    --warning: 36 100% 50%;           /* #FF9500 Apple橙 */
 
-    /* Shadows */
-    --shadow-neon-sm: 0 0 15px hsl(190 90% 55% / 0.15);
-    --shadow-neon-md: 0 0 30px hsl(190 90% 55% / 0.2);
-    --shadow-neon-lg: 0 0 60px hsl(190 90% 55% / 0.15);
-    --shadow-card: 0 4px 24px hsl(228 14% 4% / 0.6);
+    /* ============================================
+       Surface 系统 - Apple风格层次
+       ============================================ */
+    --surface-1: 0 0% 100%;           /* 最高层 - 纯白 */
+    --surface-2: 0 0% 98%;            /* 第二层 - 微灰 */
+    --surface-3: 0 0% 96%;            /* 第三层 - 浅灰 */
+    --surface-4: 0 0% 94%;            /* 第四层 - 稍深 */
 
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* ============================================
+       文字层级
+       ============================================ */
+    --text-primary: 0 0% 10%;         /* 主要文字 - 近黑 */
+    --text-secondary: 0 0% 45%;        /* 次要文字 - 中灰 */
+    --text-tertiary: 0 0% 60%;        /* 第三层级 - 浅灰 */
+    --text-quaternary: 0 0% 75%;       /* 第四层级 - 更浅 */
+
+    /* ============================================
+       阴影系统 - Apple风格微妙阴影
+       ============================================ */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.16);
+
+    /* ============================================
+       过渡动画
+       ============================================ */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* === 暗色模式 (Dark Mode) === */
+  .dark {
+    --background: 0 0% 0%;             /* #000000 纯黑 */
+    --foreground: 0 0% 98%;           /* 白色文字 */
+
+    --card: 0 0% 8%;                  /* #141414 深灰卡片 */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 211 100% 60%;          /* 稍亮的Apple蓝 */
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 15%;             /* #262626 深灰 */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 211 100% 60%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 18%;               /* #2D2D2D 暗色边框 */
+    --input: 0 0% 18%;
+    --ring: 211 100% 60%;
+
+    --success: 142 64% 55%;
+    --warning: 36 100% 55%;
+
+    /* Surface系统 - 暗色 */
+    --surface-1: 0 0% 0%;
+    --surface-2: 0 0% 6%;
+    --surface-3: 0 0% 10%;
+    --surface-4: 0 0% 14%;
+
+    /* 文字层级 - 暗色 */
+    --text-primary: 0 0% 98%;
+    --text-secondary: 0 0% 65%;
+    --text-tertiary: 0 0% 50%;
+    --text-quaternary: 0 0% 35%;
+
+    /* 阴影 - 暗色更微妙 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    letter-spacing: -0.01em;
   }
 
-  /* Scrollbar */
+  /* Apple风格滚动条 */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 3px;
+    background: hsl(var(--muted-foreground) / 0.2);
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--neon-cyan) / 0.5);
+    background: hsl(var(--muted-foreground) / 0.4);
+  }
+
+  /* 选中文字样式 */
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
-  .text-gradient-neon {
-    background: var(--gradient-text);
+  /* ============================================
+     Apple风格文本渐变 - 克制使用
+     ============================================ */
+  .text-gradient-apple {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(200 100% 50%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .border-gradient-neon {
-    border-image: var(--gradient-neon-border) 1;
+  /* ============================================
+     Apple风格阴影
+     ============================================ */
+  .shadow-apple-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  .shadow-apple-md {
+    box-shadow: var(--shadow-md);
+  }
+  .shadow-apple-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  .shadow-apple-xl {
+    box-shadow: var(--shadow-xl);
   }
 
-  .glow-neon {
-    box-shadow: var(--shadow-neon-sm);
-  }
-
-  .glow-neon-md {
-    box-shadow: var(--shadow-neon-md);
-  }
-
-  .glow-neon-lg {
-    box-shadow: var(--shadow-neon-lg);
-  }
-
-  .surface-elevated {
-    background: hsl(var(--surface-elevated));
-  }
-
-  .card-glass {
-    background: hsl(var(--card) / 0.7);
-    backdrop-filter: blur(12px);
+  /* ============================================
+     Apple风格卡片
+     ============================================ */
+  .card-apple {
+    background-color: hsl(var(--card));
+    border-radius: 1rem;
     border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
   }
-
-  .hover-lift {
-    transition: var(--transition-smooth);
-  }
-  .hover-lift:hover {
+  .card-apple:hover {
+    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-neon-md);
-    border-color: hsl(var(--neon-cyan) / 0.4);
   }
 
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  .animate-delay-400 { animation-delay: 400ms; }
-  .animate-delay-500 { animation-delay: 500ms; }
-  .animate-delay-600 { animation-delay: 600ms; }
-  .animate-delay-700 { animation-delay: 700ms; }
-  .animate-delay-800 { animation-delay: 800ms; }
+  /* ============================================
+     Surface层级
+     ============================================ */
+  .surface-1 { background-color: hsl(var(--surface-1)); }
+  .surface-2 { background-color: hsl(var(--surface-2)); }
+  .surface-3 { background-color: hsl(var(--surface-3)); }
+  .surface-4 { background-color: hsl(var(--surface-4)); }
+
+  /* ============================================
+     文字层级
+     ============================================ */
+  .text-primary { color: hsl(var(--text-primary)); }
+  .text-secondary { color: hsl(var(--text-secondary)); }
+  .text-tertiary { color: hsl(var(--text-tertiary)); }
+  .text-quaternary { color: hsl(var(--text-quaternary)); }
+
+  /* ============================================
+     Apple风格动画
+     ============================================ */
+  .animate-apple-in {
+    animation: apple-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-apple-up {
+    animation: apple-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-apple-scale {
+    animation: apple-scale 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* ============================================
+     链接下划线动画
+     ============================================ */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width var(--transition-base);
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* ============================================
+     按钮悬停效果
+     ============================================ */
+  .btn-apple {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-base);
+  }
+  .btn-apple::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+  .btn-apple:hover::before {
+    opacity: 0.05;
+  }
+
+  /* ============================================
+     极简分隔线
+     ============================================ */
+  .divider-apple {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+  }
+
+  /* ============================================
+     延迟类
+     ============================================ */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+  .delay-800 { animation-delay: 800ms; }
 }
 
-@layer utilities {
-  @keyframes career-float-1 {
-    0%, 100% { transform: translateY(0px) rotate(-1deg); }
-    50% { transform: translateY(-12px) rotate(0.5deg); }
+/* ============================================
+   关键帧动画
+   ============================================ */
+@keyframes apple-in {
+  from {
+    opacity: 0;
   }
-  @keyframes career-float-2 {
-    0%, 100% { transform: translateY(-4px) rotate(0.5deg); }
-    50% { transform: translateY(-16px) rotate(-0.5deg); }
+  to {
+    opacity: 1;
   }
-  @keyframes career-float-3 {
-    0%, 100% { transform: translateY(-2px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes apple-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  @keyframes particle-drift {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.3; }
-    100% { transform: translateY(-120px) translateX(30px); opacity: 0; }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  @keyframes line-grow {
-    from { height: 0; }
-    to { height: 100%; }
+}
+
+@keyframes apple-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  @keyframes curve-draw {
-    to { stroke-dashoffset: 0; }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  @keyframes node-appear {
-    from { opacity: 0; transform: scale(0.5); }
-    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes apple-fade {
+  from {
+    opacity: 0;
   }
-  @keyframes node-pulse {
-    0%, 100% { opacity: 0; r: 10; }
-    50% { opacity: 0.4; r: 18; }
+  to {
+    opacity: 1;
   }
-  .career-float-1 { animation: career-float-1 5s ease-in-out infinite; }
-  .career-float-2 { animation: career-float-2 6s ease-in-out infinite; }
-  .career-float-3 { animation: career-float-3 4.5s ease-in-out infinite; }
-  .particle-drift { animation: particle-drift 4s ease-out infinite; }
+}
+
+/* ============================================
+   专注模式 (Focus Styles) - 无障碍
+   ============================================ */
+:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* ============================================
+   触摸优化 (Touch Optimization)
+   ============================================ */
+@media (hover: none) {
+  .card-apple:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
 }

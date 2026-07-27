@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   ArrowLeft, Users, UserPlus, Heart, Gauge, ChevronRight,
@@ -29,6 +30,11 @@ const fmtDays = (v: unknown) => [`${v} 天`]
 
 export default function TeamBuildingPage() {
   const navigate = useNavigate()
+
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   // KPI cards
   const kpis = [
